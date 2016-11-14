@@ -8,6 +8,8 @@ npm-debug.log*
 # Dependency directory
 node_modules
 dist
+test/*.js
+*.map
 
 # Optional npm cache directory
 .npm
