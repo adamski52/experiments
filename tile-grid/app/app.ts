@@ -10,10 +10,15 @@ import {Map} from "./map/map";
 })
 
 export class App {
-    constructor(private CONFIG:CONFIG,
-                private _stage:Stage,
-                private _state:State,
-                private _map:Map) {}
+    private _stage:Stage;
+    private CONFIG:CONFIG;
+    private _map:Map;
+    private _state:State;
+
+    constructor() {
+        this.CONFIG = new CONFIG();
+        this._state = new State();
+    }
 
     private tick():void {
         console.log("TICK!");
@@ -43,6 +48,9 @@ export class App {
     }
 
     private start():void {
+        this._stage = new Stage("stage");
+        this._map = new Map(this.CONFIG, this._stage);
+
         //window.setInterval(() => {
             this.run();
         //}, 0);

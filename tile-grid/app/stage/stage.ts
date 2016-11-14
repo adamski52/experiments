@@ -9,10 +9,14 @@ export class Stage {
         this._stage.update();
     }
 
+    public update():void {
+        this._stage.update();
+    }
+
     public addChild(child:any, update:boolean = true) {
         this._stage.addChild(child.getElement());
         if(update) {
-            this._stage.update();
+            this.update();
         }
     }
 

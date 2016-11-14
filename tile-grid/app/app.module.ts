@@ -3,7 +3,7 @@ import {BrowserModule} from "@angular/platform-browser";
 import {App} from "./app";
 import {Stage} from "./stage/stage";
 import {State} from "./state/state";
-import {Hex} from "./map/hex";
+import {Tile} from "./map/tile";
 import {CONFIG} from "./config/config";
 
 @NgModule({

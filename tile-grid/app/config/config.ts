@@ -6,5 +6,5 @@ export class CONFIG {
     public MAX_SKIP:number = 10;
     public MAP_HEIGHT:number = 5;
     public MAP_WIDTH:number = 15;
-    public TILE_RADIUS:number = 5;
+    public TILE_SIZE:number = 15;
 }
