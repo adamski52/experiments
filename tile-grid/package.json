@@ -8,7 +8,7 @@
     "build:start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
     "lite": "lite-server",
     "tsc": "tsc",
-    "test": "npm run build && npm run test:start",
+    "test": "npm run clean && npm run test:start",
     "test:start": "tsc -p tsconfig-test.json && concurrently \"karma start karma.conf.js\" \"tsc -p tsconfig-test.json -w\""
   },
   "licenses": [
