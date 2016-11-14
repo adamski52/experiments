@@ -1,5 +1,7 @@
-import {Injectable, Inject} from '@angular/core';
+import {Injectable, EventEmitter} from '@angular/core';
+import {Subject} from 'rxjs/Subject';
 import {CONFIG} from "../config/config";
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class Tile {
@@ -9,16 +11,29 @@ export class Tile {
     // every 50px of tile size creates 7 pixels of y-offset.
     private _offset:number;
 
-    constructor(private _x:number, private _y:number, private _size:number) {
-        this._offset = Math.floor((this._size / 50))*7;
+    public row:number;
+    public col:number;
+
+    private onClick:Subject<Tile> = new Subject<Tile>();
+    public onClick$:Observable<Tile> = this.onClick.asObservable();
+
+    constructor(private _x:number, private _y:number, private CONFIG:CONFIG) {
+        this.row = this._y;
+        this.col = this._x;
+
+        this._offset = Math.floor((this.CONFIG.TILE_SIZE / 50))*7;
 
         this._shape = new createjs.Shape();
 
-        this._shape.graphics.setStrokeStyle(1);
-        this._shape.graphics.beginStroke("#cccccc");
-        this._shape.graphics.beginFill("#f0f0f0");
-        this._shape.graphics.drawPolyStar(0, 0, this._size, 6, 0, 0);
+        this._shape.graphics.setStrokeStyle(this.CONFIG.STROKE_SIZE);
+        this._shape.graphics.beginStroke(this.CONFIG.STROKE_COLOR);
+        this._shape.graphics.beginFill(this.CONFIG.FILL_COLOR);
+        this._shape.graphics.drawPolyStar(0, 0, this.CONFIG.TILE_SIZE, 6, 0, 0);
         this.setPosition(this._x, this._y);
+
+        this._shape.addEventListener("click", () => {
+            this.onClick.next(this);
+        });
     }
 
     public setPosition(x:number, y:number):void {
@@ -26,13 +41,13 @@ export class Tile {
         this._y = y;
 
         if(this._y % 2 === 0) {
-            this._shape.x = (this._x * this._size * 3) + this._size;;
+            this._shape.x = (this._x * this.CONFIG.TILE_SIZE * 3) + this.CONFIG.TILE_SIZE;
         }
         else {
-            this._shape.x = (this._x * this._size * 3) + (this._size * 1.5) + this._size;
+            this._shape.x = (this._x * this.CONFIG.TILE_SIZE * 3) + (this.CONFIG.TILE_SIZE * 1.5) + this.CONFIG.TILE_SIZE;
         }
 
-        this._shape.y = (this._y * (this._size - this._offset)) + this._size - this._offset;
+        this._shape.y = (this._y * (this.CONFIG.TILE_SIZE - this._offset)) + this.CONFIG.TILE_SIZE - this._offset;
     }
 
     public getElement():createjs.Shape {
