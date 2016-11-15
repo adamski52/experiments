@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import {Tile} from "./tile";
 import {CONFIG} from "../config/config";
+import {ITileNeighbors} from "../interfaces/tile-neighbors";
 
 @Injectable()
 export class Map {
     private _tiles:Array<Tile> = [];
     private _grid:Array<Array<Tile>> = [];
-
 
     constructor(private CONFIG:CONFIG) {
         var tile:Tile;
@@ -30,21 +30,57 @@ export class Map {
         }
     }
 
+    private onTileClick(tile:Tile) {
+        var neighbors:ITileNeighbors = this.getTileNeighbors(tile);
+        console.log(neighbors);
+    }
+
 
     public render():Array<Tile> {
         return this._tiles;
     }
 
-    private onTileClick(tile:Tile):void {
-        console.log("TILE", tile);
+    private getTileNeighbors(tile:Tile):ITileNeighbors {
+        var n:Tile,
+            ne:Tile,
+            se:Tile,
+            s:Tile,
+            sw:Tile,
+            nw:Tile;
+
+        console.log("CLICKED TILE: ", tile);
+
+        if(tile.row - 1 > 0) {
+            ne = this._grid[tile.row-1][tile.col];
+
+            if(tile.col - 1 > 0) {
+                nw = this._grid[tile.row-1][tile.col-1];
+            }
+
+            if(tile.row - 2 > 0) {
+               n = this._grid[tile.row-2][tile.col];
+            }
+        }
+
+        if(this._grid.length > tile.row + 1) {
+            se = this._grid[tile.row+1][tile.col];
+
+            if(tile.col - 1 > 0) {
+                sw = this._grid[tile.row+1][tile.col-1];
+            }
+
+            if(this._grid.length > tile.row + 2) {
+                s = this._grid[tile.row+2][tile.col];
+            }
+        }
 
         return {
-            //n: this._tiles[],
-            //ne: null,
-            //se: null,
-            //s: null,
-            //sw: null,
-            //nw: null
+            n: n,
+            ne: ne,
+            se: se,
+            s: s,
+            sw: sw,
+            nw: nw
         };
     }
 }

@@ -2,21 +2,13 @@
   "name": "hex-grid",
   "version": "1.0.0",
   "scripts": {
-    "clean": "del-cli dist",
-    "start": "npm run clean && concurrently \"npm run build:start\" \"npm run test:start\"",
-    "build": "npm run clean && npm run build:start",
-    "build:start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
+    "start": "npm run clean && tsc && concurrently \"tsc -w\" \"lite-server\" ",
+    "clean": "del-cli app-dist && del-cli test-dist",
     "lite": "lite-server",
+    "test": "npm run clean && concurrently \"tsc -w\" \"tsc -w -p tsconfig-test.json\" \"karma start karma.conf.js\"",
     "tsc": "tsc",
-    "test": "npm run clean && npm run test:start",
-    "test:start": "tsc -p tsconfig-test.json && concurrently \"karma start karma.conf.js\" \"tsc -p tsconfig-test.json -w\""
+    "tsc:w": "tsc -w"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/angular/angular.io/blob/master/LICENSE"
-    }
-  ],
   "dependencies": {
     "@angular/common": "~2.1.1",
     "@angular/compiler": "~2.1.1",
@@ -38,15 +30,17 @@
   "devDependencies": {
     "@types/core-js": "^0.9.34",
     "@types/easeljs": "^0.8.35",
-    "@types/jasmine": "^2.5.37",
+    "@types/jasmine": "^2.5.38",
     "@types/node": "^6.0.45",
     "concurrently": "^3.0.0",
     "del-cli": "^0.2.0",
-    "jasmine": "^2.5.2",
     "jasmine-core": "^2.5.2",
     "karma": "^1.3.0",
+    "karma-chrome-launcher": "^2.0.0",
     "karma-cli": "^1.0.1",
+    "karma-htmlfile-reporter": "^0.3.4",
     "karma-jasmine": "^1.0.2",
+    "karma-jasmine-html-reporter": "^0.2.2",
     "karma-phantomjs-launcher": "^1.0.2",
     "lite-server": "^2.2.2",
     "phantomjs-prebuilt": "^2.1.13",
