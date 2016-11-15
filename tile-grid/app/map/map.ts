@@ -44,15 +44,13 @@ export class Map {
         return this._tiles;
     }
 
-    private getTileNeighbors(tile:Tile):ITileNeighbors {
+    public getTileNeighbors(tile:Tile):ITileNeighbors {
         var n:Tile,
             ne:Tile,
             se:Tile,
             s:Tile,
             sw:Tile,
             nw:Tile;
-
-        console.log("CLICKED TILE: ", tile);
 
         if(tile.row - 1 > 0) {
             ne = this._grid[tile.row-1][tile.col];

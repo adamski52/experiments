@@ -47,7 +47,6 @@ var Map = (function () {
     };
     Map.prototype.getTileNeighbors = function (tile) {
         var n, ne, se, s, sw, nw;
-        console.log("CLICKED TILE: ", tile);
         if (tile.row - 1 > 0) {
             ne = this._grid[tile.row - 1][tile.col];
             if (tile.col - 1 > 0) {
