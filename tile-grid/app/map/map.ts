@@ -11,9 +11,13 @@ export class Map {
     constructor(private CONFIG:CONFIG) {
         var tile:Tile;
 
+        if(this.CONFIG.MAP_WIDTH <= 1 || this.CONFIG.MAP_HEIGHT <= 1) {
+            throw new Error(this.CONFIG.INVALID_SIZE_ERROR);
+        }
+
         for(var x = 0; x < this.CONFIG.MAP_WIDTH; x++) {
             for(var y = 0; y < this.CONFIG.MAP_HEIGHT; y++) {
-                tile = new Tile(x, y, this.CONFIG); // good eye, cowboy.  from the docs, "but what if, but what if"....  this isn't a singleton.  different idea entirely.
+                tile = new Tile(x, y, this.CONFIG);
                 tile.onClick$.subscribe(tile => {
                     this.onTileClick(tile);
                 });

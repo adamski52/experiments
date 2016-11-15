@@ -18,4 +18,6 @@ export class CONFIG {
     public STROKE_SIZE:number = 1;
 
     public TILE_CLICK:string = "TILE_CLICK";
+
+    public INVALID_SIZE_ERROR:string = "Invalid map size specified.";
 }

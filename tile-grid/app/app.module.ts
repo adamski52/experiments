@@ -5,6 +5,7 @@ import {State} from "./state/state";
 import {Tile} from "./map/tile";
 import {CONFIG} from "./config/config";
 
+
 @NgModule({
     imports: [BrowserModule],
     declarations: [App],
