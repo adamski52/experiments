@@ -51,7 +51,8 @@ describe("Map class", function () {
             FILL_ACTIVE_COLOR: "#dddddd",
             STROKE_COLOR: "#cccccc",
             STROKE_SIZE: 1,
-            TILE_CLICK: "TILE_CLICK"
+            TILE_CLICK: "TILE_CLICK",
+            INVALID_SIZE_ERROR: "Go away!"
         };
         var _map = new map_1.Map(_config);
         expect(_map.render().length).toBe(25);
@@ -68,7 +69,8 @@ describe("Map class", function () {
             FILL_ACTIVE_COLOR: "#dddddd",
             STROKE_COLOR: "#cccccc",
             STROKE_SIZE: 1,
-            TILE_CLICK: "TILE_CLICK"
+            TILE_CLICK: "TILE_CLICK",
+            INVALID_SIZE_ERROR: "Go away!"
         };
         var _map = new map_1.Map(_config);
         expect(_map.render().length).toBe(50);

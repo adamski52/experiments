@@ -56,7 +56,8 @@ describe("Map class", () => {
             FILL_ACTIVE_COLOR: "#dddddd",
             STROKE_COLOR: "#cccccc",
             STROKE_SIZE: 1,
-            TILE_CLICK: "TILE_CLICK"
+            TILE_CLICK: "TILE_CLICK",
+            INVALID_SIZE_ERROR: "Go away!"
         };
 
         var _map:Map = new Map(_config);
@@ -76,7 +77,8 @@ describe("Map class", () => {
             FILL_ACTIVE_COLOR: "#dddddd",
             STROKE_COLOR: "#cccccc",
             STROKE_SIZE: 1,
-            TILE_CLICK: "TILE_CLICK"
+            TILE_CLICK: "TILE_CLICK",
+            INVALID_SIZE_ERROR: "Go away!"
         };
 
         var _map:Map = new Map(_config);
