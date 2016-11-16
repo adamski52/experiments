@@ -1,9 +1,7 @@
-import {Injectable} from '@angular/core';
 import {Tile} from "./tile";
 import {CONFIG} from "../config/config";
 import {ITileNeighbors} from "../interfaces/tile-neighbors";
 
-@Injectable()
 export class Map {
     private _tiles:Array<Tile> = [];
     private _grid:Array<Array<Tile>> = [];

@@ -1,12 +1,6 @@
-import {Component} from "@angular/core";
 import {State} from "./state/state";
 import {CONFIG} from "./config/config";
 import {Map} from "./map/map";
-
-@Component({
-    selector: "hex-grid",
-    templateUrl: "templates/stage.html"
-})
 
 export class App {
     private _stage:createjs.Stage;
@@ -28,13 +22,14 @@ export class App {
     }
 
     private draw(items:Array<any>):void {
-        this._frames++;
         for(let item of items) {
             this._stage.addChild(item.getElement());
         }
     }
 
     private render():void {
+        this._frames++;
+
         this._stage.removeAllChildren();
 
         this.draw(this._map.render());
@@ -60,7 +55,7 @@ export class App {
         this.render();
     }
 
-    private start():void {
+    public start():void {
         this._stage = new createjs.Stage(this.CONFIG.STAGE_ID);
         this._map = new Map(this.CONFIG);
 
@@ -69,15 +64,11 @@ export class App {
         }, 1);
 
         window.setInterval(() => {
-            this.fps = this._frames;
-            this.tps = this._ticks;
+            document.getElementById("fps").innerHTML = this._frames + "";
+            document.getElementById("tps").innerHTML = this._ticks + "";
 
             this._frames = 0;
             this._ticks = 0;
         }, 1000);
-    }
-
-    ngOnInit() {
-        this.start();
     }
 }

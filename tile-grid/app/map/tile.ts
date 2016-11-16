@@ -1,10 +1,8 @@
-import {Injectable, EventEmitter} from '@angular/core';
 import {Subject} from 'rxjs/Subject';
 import {CONFIG} from "../config/config";
 import {Observable} from "rxjs/Observable";
 import {ITileStyle} from "../interfaces/tile-style";
 
-@Injectable()
 export class Tile {
     private _shape:createjs.Shape;
 
