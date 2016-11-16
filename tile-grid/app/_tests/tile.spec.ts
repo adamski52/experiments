@@ -14,7 +14,7 @@ describe("Tile class", () => {
         }
     }
 
-    var config:CONFIG,
+    var config:CONFIG = new CONFIG(),
         map:Map,
         tiles:Array<Tile>,
         selectedTile:Tile,
@@ -22,20 +22,8 @@ describe("Tile class", () => {
         col:number,
         row:number;
 
-    config = {
-        STAGE_ID: "stage",
-        FPS: 33,
-        MAX_SKIP: 10,
-        MAP_WIDTH: 3,
-        MAP_HEIGHT: 6,
-        TILE_SIZE: 100,
-        FILL_COLOR: "#f0f0f0",
-        FILL_ACTIVE_COLOR: "#dddddd",
-        STROKE_COLOR: "#cccccc",
-        STROKE_SIZE: 1,
-        TILE_CLICK: "TILE_CLICK",
-        INVALID_SIZE_ERROR: "Go away!"
-    };
+    config.DISPLAY.MAP_WIDTH = 3;
+    config.DISPLAY.MAP_HEIGHT = 6;
 
     map = new Map(config);
     tiles = map.render();

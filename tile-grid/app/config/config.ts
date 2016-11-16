@@ -1,20 +1,27 @@
 export class CONFIG {
-    public STAGE_ID:string = "stage";
+    public IDS:any = {
+        STAGE_ID: "tile-grid-stage",
+        FPS_ID: "tile-grid-fps",
+        TPS_ID: "tile-grid-tps"
+    };
 
-    public FPS: number = 33;
-    public MAX_SKIP:number = 10;
+    public STYLES:any = {
+        FILL: {
+            COLOR: "#f0f0f0",
+            ACTIVE: "#000000",
+            HINT: "#ffffff"
+        },
+        STROKE: {
+            COLOR: "#cccccc",
+            SIZE: 1
+        }
+    };
 
-    public MAP_WIDTH:number = 3;
-    public MAP_HEIGHT:number = 6;
-
-    public TILE_SIZE:number = 100;
-
-    public FILL_COLOR:string = "#f0f0f0";
-    public FILL_ACTIVE_COLOR:string = "#000000";
-    public STROKE_COLOR:string = "#cccccc";
-    public STROKE_SIZE:number = 1;
-
-    public TILE_CLICK:string = "TILE_CLICK";
-
-    public INVALID_SIZE_ERROR:string = "Invalid map size specified.";
+    public DISPLAY:any = {
+        FPS: 33,
+        MAX_FRAME_SKIP: 10,
+        MAP_WIDTH: 3,
+        MAP_HEIGHT: 6,
+        TILE_SIZE: 100
+    };
 }

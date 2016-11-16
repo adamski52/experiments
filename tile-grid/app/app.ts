@@ -4,18 +4,11 @@ import {Map} from "./map/map";
 
 export class App {
     private _stage:createjs.Stage;
-    private _state:State;
-    private CONFIG:CONFIG;
+    private _state:State = new State();
+    private CONFIG:CONFIG = new CONFIG();
     private _map:Map;
     private _ticks:number = 0;
     private _frames:number = 0;
-    private tps:number = 0;
-    private fps:number = 0;
-
-    constructor() {
-        this.CONFIG = new CONFIG();
-        this._state = new State();
-    }
 
     private tick():void {
         this._ticks++;
@@ -44,9 +37,9 @@ export class App {
 
         var next = new Date().getTime(),
             loops = 0,
-            skips = 1000 / this.CONFIG.FPS;
+            skips = 1000 / this.CONFIG.DISPLAY.FPS;
 
-        while(new Date().getTime() >= next && loops < this.CONFIG.MAX_SKIP) {
+        while(new Date().getTime() >= next && loops < this.CONFIG.DISPLAY.MAX_FRAME_SKIP) {
             this.tick();
             next += skips;
             loops++;
@@ -56,7 +49,7 @@ export class App {
     }
 
     public start():void {
-        this._stage = new createjs.Stage(this.CONFIG.STAGE_ID);
+        this._stage = new createjs.Stage(this.CONFIG.IDS.STAGE_ID);
         this._map = new Map(this.CONFIG);
 
         window.setInterval(() => {
@@ -64,8 +57,8 @@ export class App {
         }, 1);
 
         window.setInterval(() => {
-            document.getElementById("fps").innerHTML = this._frames + "";
-            document.getElementById("tps").innerHTML = this._ticks + "";
+            document.getElementById(this.CONFIG.IDS.FPS_ID).innerHTML = this._frames + "";
+            document.getElementById(this.CONFIG.IDS.TPS_ID).innerHTML = this._ticks + "";
 
             this._frames = 0;
             this._ticks = 0;

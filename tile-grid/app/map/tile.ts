@@ -21,11 +21,11 @@ export class Tile {
     constructor(private _x:number, private _y:number, private CONFIG:CONFIG) {
         this.row = this._y;
         this.col = this._x;
-        this._offset = Math.floor((this.CONFIG.TILE_SIZE / 50))*7;
+        this._offset = Math.floor((this.CONFIG.DISPLAY.TILE_SIZE / 50))*7;
         this._style = {
-            fill: this.CONFIG.FILL_COLOR,
-            strokeColor: this.CONFIG.STROKE_COLOR,
-            strokeSize: this.CONFIG.STROKE_SIZE
+            fill: this.CONFIG.STYLES.FILL.COLOR,
+            strokeColor: this.CONFIG.STYLES.STROKE.COLOR,
+            strokeSize: this.CONFIG.STYLES.STROKE.SIZE
         };
 
         this._shape = new createjs.Shape();
@@ -42,16 +42,16 @@ export class Tile {
         this._shape.graphics.setStrokeStyle(this._style.strokeSize);
         this._shape.graphics.beginStroke(this._style.strokeColor);
         this._shape.graphics.beginFill(this._style.fill);
-        this._shape.graphics.drawPolyStar(0, 0, this.CONFIG.TILE_SIZE, 6, 0, 0);
+        this._shape.graphics.drawPolyStar(0, 0, this.CONFIG.DISPLAY.TILE_SIZE, 6, 0, 0);
         this.setPosition(this._x, this._y);
     }
 
     public activate():void {
-        this._style.fill = this.CONFIG.FILL_ACTIVE_COLOR;
+        this._style.fill = this.CONFIG.STYLES.FILL.ACTIVE;
     }
 
     public hint():void {
-        this._style.fill = "#ffffff";
+        this._style.fill = this.CONFIG.STYLES.FILL.HINT;
     }
 
     public setPosition(x:number, y:number):void {
@@ -59,13 +59,13 @@ export class Tile {
         this._y = y;
 
         if(this._y % 2 === 0) {
-            this._shape.x = (this._x * this.CONFIG.TILE_SIZE * 3) + this.CONFIG.TILE_SIZE;
+            this._shape.x = (this._x * this.CONFIG.DISPLAY.TILE_SIZE * 3) + this.CONFIG.DISPLAY.TILE_SIZE;
         }
         else {
-            this._shape.x = (this._x * this.CONFIG.TILE_SIZE * 3) + (this.CONFIG.TILE_SIZE * 1.5) + this.CONFIG.TILE_SIZE;
+            this._shape.x = (this._x * this.CONFIG.DISPLAY.TILE_SIZE * 3) + (this.CONFIG.DISPLAY.TILE_SIZE * 1.5) + this.CONFIG.DISPLAY.TILE_SIZE;
         }
 
-        this._shape.y = (this._y * (this.CONFIG.TILE_SIZE - this._offset)) + this.CONFIG.TILE_SIZE - this._offset;
+        this._shape.y = (this._y * (this.CONFIG.DISPLAY.TILE_SIZE - this._offset)) + this.CONFIG.DISPLAY.TILE_SIZE - this._offset;
     }
 
     public getElement():createjs.Shape {
