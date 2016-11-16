@@ -4,8 +4,8 @@ export class CONFIG {
     public FPS: number = 33;
     public MAX_SKIP:number = 10;
 
-    public MAP_WIDTH:number = 2;
-    public MAP_HEIGHT:number = 5;
+    public MAP_WIDTH:number = 3;
+    public MAP_HEIGHT:number = 6;
 
     public TILE_SIZE:number = 100;
 

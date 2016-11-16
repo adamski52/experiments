@@ -52,47 +52,84 @@ export class Map {
         return this._tiles;
     }
 
+    private figureNorth(tile:Tile):Tile | undefined {
+        var row:number = tile.row - 2,
+            col:number = tile.col;
+
+
+        if(row < 0) {
+            return;
+        }
+
+        return this._grid[row][col];
+    }
+
+    private figureSouth(tile:Tile):Tile | undefined {
+        var row:number = tile.row + 2,
+            col:number = tile.col;
+
+        if(row >= this._grid.length) {
+            return;
+        }
+
+        return this._grid[row][col];
+    }
+
+
+    private figureNorthWest(tile:Tile):Tile | undefined {
+        var row:number = tile.row - 1,
+            col:number = tile.row % 2 === 0 ? tile.col - 1 : tile.col,
+
+        if(col < 0 || row < 0) {
+            return;
+        }
+
+        return this._grid[row][col];
+    }
+
+    private figureNorthEast(tile:Tile):Tile | undefined {
+        var row:number = tile.row - 1,
+            col:number = tile.row % 2 === 0 ? tile.col : tile.col + 1;
+
+        if(row < 0 || col >= this._grid[row].length) {
+            return;
+        }
+
+        return this._grid[row][col];
+    }
+
+    private figureSouthWest(tile:Tile):Tile | undefined {
+        var row:number = tile.row + 1,
+            col:number = tile.row % 2 === 0 ? tile.col - 1: tile.col;
+
+        if(row >= this._grid.length || col < 0) {
+            return;
+        }
+
+        return this._grid[row][col];
+    }
+
+    private figureSouthEast(tile:Tile):Tile | undefined {
+        var row:number = tile.row + 1,
+            col:number = tile.row % 2 === 0 ? tile.col : tile.col + 1;
+
+        if(row >= this._grid.length || col >= this._grid[row].length) {
+            return;
+        }
+
+        return this._grid[row][col];
+    }
+
     public getTileNeighbors(tile:Tile):ITileNeighbors {
         console.log("TILE: ", tile);
 
-        var n:Tile,
-            ne:Tile,
-            se:Tile,
-            s:Tile,
-            sw:Tile,
-            nw:Tile;
-
-        if(tile.row - 1 >= 0) {
-            ne = this._grid[tile.row-1][tile.col];
-
-            if(tile.col - 1 < this._grid[tile.row-1].length) {
-                nw = this._grid[tile.row-1][tile.col-1];
-            }
-
-            if(tile.row - 2 >= 0) {
-                n = this._grid[tile.row-2][tile.col];
-            }
-        }
-
-        if(tile.row + 1 < this._grid.length) {
-            se = this._grid[tile.row+1][tile.col];
-
-            if(tile.col - 1 < this._grid[tile.row+1].length) {
-                sw = this._grid[tile.row+1][tile.col-1];
-            }
-
-            if(tile.row + 2 < this._grid.length) {
-                s = this._grid[tile.row+2][tile.col];
-            }
-        }
-
         return {
-            n: n,
-            ne: ne,
-            se: se,
-            s: s,
-            sw: sw,
-            nw: nw
+            n: this.figureNorth(tile),
+            ne: this.figureNorthEast(tile),
+            se: this.figureSouthEast(tile),
+            s: this.figureSouth(tile),
+            sw: this.figureSouthWest(tile),
+            nw: this.figureNorthWest(tile)
         };
     }
 }
