@@ -43,11 +43,12 @@ var App = (function () {
         this.render();
     };
     App.prototype.start = function () {
+        var _this = this;
         this._stage = new createjs.Stage(this.CONFIG.STAGE_ID);
         this._map = new map_1.Map(this.CONFIG);
-        //window.setInterval(() => {
-        this.run();
-        //}, 0);
+        window.setInterval(function () {
+            _this.run();
+        }, 0);
     };
     App.prototype.ngOnInit = function () {
         this.start();

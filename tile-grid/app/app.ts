@@ -59,9 +59,9 @@ export class App {
         this._stage = new createjs.Stage(this.CONFIG.STAGE_ID);
         this._map = new Map(this.CONFIG);
 
-        //window.setInterval(() => {
+        window.setInterval(() => {
             this.run();
-        //}, 0);
+        }, 0);
     }
 
     ngOnInit() {

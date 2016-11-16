@@ -132,26 +132,43 @@ describe("Map class", () => {
 
         it("should create a proper northern neighbor", () => {
             expect(neighbors.n).toBeDefined();
+            expect(neighbors.n.col).toBe(1);
+            expect(neighbors.n.row).toBe(0);
         });
 
         it("should create a proper northwestern neighbor", () => {
             expect(neighbors.nw).toBeDefined();
+            expect(neighbors.nw.col).toBe(0);
+            expect(neighbors.nw.row).toBe(1);
         });
 
         it("should create a proper northeastern neighbor", () => {
             expect(neighbors.ne).toBeDefined();
+            expect(neighbors.ne.col).toBe(1);
+            expect(neighbors.ne.row).toBe(1);
         });
 
         it("should create a proper southern neighbor", () => {
             expect(neighbors.s).toBeDefined();
+            expect(neighbors.s.col).toBe(1);
+            expect(neighbors.s.row).toBe(4);
         });
 
         it("should create a proper southwestern neighbor", () => {
             expect(neighbors.sw).toBeDefined();
+            expect(neighbors.sw.col).toBe(0);
+            expect(neighbors.sw.row).toBe(3);
         });
 
         it("should create a proper southeastern neighbor", () => {
             expect(neighbors.se).toBeDefined();
+            expect(neighbors.se.col).toBe(1);
+            expect(neighbors.se.row).toBe(3);
+        });
+
+        it("should highlight the clicked tile", () => {
+            center.getElement().click();
+            expect(center.getStyle().fill).toBe(config.FILL_ACTIVE_COLOR);
         });
     });
-})
+});

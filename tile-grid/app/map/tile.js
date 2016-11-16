@@ -22,16 +22,30 @@ var Tile = (function () {
         this.row = this._y;
         this.col = this._x;
         this._offset = Math.floor((this.CONFIG.TILE_SIZE / 50)) * 7;
+        this._style = {
+            fill: this.CONFIG.FILL_COLOR,
+            strokeColor: this.CONFIG.STROKE_COLOR,
+            strokeSize: this.CONFIG.STROKE_SIZE
+        };
         this._shape = new createjs.Shape();
-        this._shape.graphics.setStrokeStyle(this.CONFIG.STROKE_SIZE);
-        this._shape.graphics.beginStroke(this.CONFIG.STROKE_COLOR);
-        this._shape.graphics.beginFill(this.CONFIG.FILL_COLOR);
-        this._shape.graphics.drawPolyStar(0, 0, this.CONFIG.TILE_SIZE, 6, 0, 0);
-        this.setPosition(this._x, this._y);
+        this.render();
         this._shape.addEventListener("click", function () {
             _this.onClick.next(_this);
         });
     }
+    Tile.prototype.render = function () {
+        this._shape.graphics.setStrokeStyle(this._style.strokeSize);
+        this._shape.graphics.beginStroke(this._style.strokeColor);
+        this._shape.graphics.beginFill(this._style.fill);
+        this._shape.graphics.drawPolyStar(0, 0, this.CONFIG.TILE_SIZE, 6, 0, 0);
+        this.setPosition(this._x, this._y);
+    };
+    Tile.prototype.activate = function () {
+        this._style.fill = this.CONFIG.FILL_ACTIVE_COLOR;
+    };
+    Tile.prototype.hint = function () {
+        this._style.fill = "#ffffff";
+    };
     Tile.prototype.setPosition = function (x, y) {
         this._x = x;
         this._y = y;
@@ -44,7 +58,11 @@ var Tile = (function () {
         this._shape.y = (this._y * (this.CONFIG.TILE_SIZE - this._offset)) + this.CONFIG.TILE_SIZE - this._offset;
     };
     Tile.prototype.getElement = function () {
+        this.render();
         return this._shape;
+    };
+    Tile.prototype.getStyle = function () {
+        return this._style;
     };
     Tile = __decorate([
         core_1.Injectable(), 

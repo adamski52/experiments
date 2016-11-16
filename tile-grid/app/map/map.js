@@ -40,28 +40,36 @@ var Map = (function () {
     }
     Map.prototype.onTileClick = function (tile) {
         var neighbors = this.getTileNeighbors(tile);
-        console.log(neighbors);
+        tile.activate();
+        console.log("NEIGHBORS: ", neighbors);
+        for (var n in neighbors) {
+            if (neighbors[n]) {
+                neighbors[n].hint();
+            }
+        }
+        return neighbors;
     };
     Map.prototype.render = function () {
         return this._tiles;
     };
     Map.prototype.getTileNeighbors = function (tile) {
+        console.log("TILE: ", tile);
         var n, ne, se, s, sw, nw;
-        if (tile.row - 1 > 0) {
+        if (tile.row - 1 >= 0) {
             ne = this._grid[tile.row - 1][tile.col];
-            if (tile.col - 1 > 0) {
+            if (tile.col - 1 < this._grid[tile.row - 1].length) {
                 nw = this._grid[tile.row - 1][tile.col - 1];
             }
-            if (tile.row - 2 > 0) {
+            if (tile.row - 2 >= 0) {
                 n = this._grid[tile.row - 2][tile.col];
             }
         }
-        if (this._grid.length > tile.row + 1) {
+        if (tile.row + 1 < this._grid.length) {
             se = this._grid[tile.row + 1][tile.col];
-            if (tile.col - 1 > 0) {
+            if (tile.col - 1 < this._grid[tile.row + 1].length) {
                 sw = this._grid[tile.row + 1][tile.col - 1];
             }
-            if (this._grid.length > tile.row + 2) {
+            if (tile.row + 2 < this._grid.length) {
                 s = this._grid[tile.row + 2][tile.col];
             }
         }

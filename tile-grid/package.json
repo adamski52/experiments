@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "clean": "del-cli app/**/*.js && del-cli app/**/*.js.map",
-    "start": "npm run clean && tsc && concurrently \"tsc -w\" \"lite-server\" \"karma start karma.conf.js\"",
+    "start": "npm run clean && tsc && concurrently \"tsc -w\" \"lite-server\"",
     "lite": "lite-server",
     "test": "npm run clean && tsc && concurrently \"tsc -w\" \"karma start karma.conf.js\"",
     "test-once": "npm run clean && tsc && karma start karma.conf.js --single-run",

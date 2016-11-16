@@ -2,6 +2,7 @@ import {Injectable, EventEmitter} from '@angular/core';
 import {Subject} from 'rxjs/Subject';
 import {CONFIG} from "../config/config";
 import {Observable} from "rxjs/Observable";
+import {ITileStyle} from "../interfaces/tile-style";
 
 @Injectable()
 export class Tile {
@@ -10,6 +11,8 @@ export class Tile {
     // i dont have an answer to this quite yet.  pixels being rectangular or something?
     // every 50px of tile size creates 7 pixels of y-offset.
     private _offset:number;
+
+    private _style:ITileStyle;
 
     public row:number;
     public col:number;
@@ -20,20 +23,36 @@ export class Tile {
     constructor(private _x:number, private _y:number, private CONFIG:CONFIG) {
         this.row = this._y;
         this.col = this._x;
-
         this._offset = Math.floor((this.CONFIG.TILE_SIZE / 50))*7;
+        this._style = {
+            fill: this.CONFIG.FILL_COLOR,
+            strokeColor: this.CONFIG.STROKE_COLOR,
+            strokeSize: this.CONFIG.STROKE_SIZE
+        };
 
         this._shape = new createjs.Shape();
 
-        this._shape.graphics.setStrokeStyle(this.CONFIG.STROKE_SIZE);
-        this._shape.graphics.beginStroke(this.CONFIG.STROKE_COLOR);
-        this._shape.graphics.beginFill(this.CONFIG.FILL_COLOR);
-        this._shape.graphics.drawPolyStar(0, 0, this.CONFIG.TILE_SIZE, 6, 0, 0);
-        this.setPosition(this._x, this._y);
+        this.render();
 
         this._shape.addEventListener("click", () => {
             this.onClick.next(this);
         });
+    }
+
+    private render():void {
+        this._shape.graphics.setStrokeStyle(this._style.strokeSize);
+        this._shape.graphics.beginStroke(this._style.strokeColor);
+        this._shape.graphics.beginFill(this._style.fill);
+        this._shape.graphics.drawPolyStar(0, 0, this.CONFIG.TILE_SIZE, 6, 0, 0);
+        this.setPosition(this._x, this._y);
+    }
+
+    public activate():void {
+        this._style.fill = this.CONFIG.FILL_ACTIVE_COLOR;
+    }
+
+    public hint():void {
+        this._style.fill = "#ffffff";
     }
 
     public setPosition(x:number, y:number):void {
@@ -51,6 +70,11 @@ export class Tile {
     }
 
     public getElement():createjs.Shape {
+        this.render();
         return this._shape;
+    }
+
+    public getStyle():ITileStyle {
+        return this._style;
     }
 }

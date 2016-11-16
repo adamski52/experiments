@@ -13,7 +13,7 @@ export class CONFIG {
     public TILE_SIZE:number = 100;
 
     public FILL_COLOR:string = "#f0f0f0";
-    public FILL_ACTIVE_COLOR:string = "#dddddd";
+    public FILL_ACTIVE_COLOR:string = "#000000";
     public STROKE_COLOR:string = "#cccccc";
     public STROKE_SIZE:number = 1;
 
