@@ -78,7 +78,7 @@ export class Map {
 
     private figureNorthWest(tile:Tile):Tile | undefined {
         var row:number = tile.row - 1,
-            col:number = tile.row % 2 === 0 ? tile.col - 1 : tile.col,
+            col:number = tile.row % 2 === 0 ? tile.col - 1 : tile.col;
 
         if(col < 0 || row < 0) {
             return;
