@@ -40,6 +40,7 @@ export class Tile {
     }
 
     private render():void {
+        this._shape.graphics.clear();
         this._shape.graphics.setStrokeStyle(this._style.strokeSize);
         this._shape.graphics.beginStroke(this._style.strokeColor);
         this._shape.graphics.beginFill(this._style.fill);
