@@ -26,7 +26,7 @@ describe("Tile class", () => {
     config.DISPLAY.MAP_HEIGHT = 6;
 
     map = new Map(config);
-    tiles = map.render();
+    tiles = map.renderTiles();
 
 
     // all (0, 3) and (1, 2)

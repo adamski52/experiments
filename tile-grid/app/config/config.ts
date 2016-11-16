@@ -6,14 +6,27 @@ export class CONFIG {
     };
 
     public STYLES:any = {
-        FILL: {
-            COLOR: "#f0f0f0",
-            ACTIVE: "#000000",
-            HINT: "#ffffff"
+        TILE: {
+            FILL: {
+                COLOR: "#f0f0f0",
+                ACTIVE: "#000000",
+                HINT: "#ffffff"
+            },
+            STROKE: {
+                COLOR: "#cccccc",
+                SIZE: 1
+            },
+            SIZE: 100
         },
-        STROKE: {
-            COLOR: "#cccccc",
-            SIZE: 1
+        PAWN: {
+            FILL: {
+                COLOR: "#333333"
+            },
+            STROKE: {
+                COLOR: "#ff0000",
+                SIZE: 1
+            },
+            SIZE: 20
         }
     };
 
@@ -22,6 +35,5 @@ export class CONFIG {
         MAX_FRAME_SKIP: 10,
         MAP_WIDTH: 3,
         MAP_HEIGHT: 6,
-        TILE_SIZE: 100
     };
 }

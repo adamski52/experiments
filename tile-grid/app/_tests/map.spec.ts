@@ -33,7 +33,7 @@ describe("Map class", () => {
 
             var map:Map = new Map(config);
 
-            expect(map.render().length).toBe(25);
+            expect(map.renderTiles().length).toBe(25);
         });
 
         it("should accept a rectangular configuration.", () => {
@@ -43,7 +43,7 @@ describe("Map class", () => {
 
             var map:Map = new Map(config);
 
-            expect(map.render().length).toBe(50);
+            expect(map.renderTiles().length).toBe(50);
         });
     });
 });

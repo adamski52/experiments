@@ -25,7 +25,9 @@ export class App {
 
         this._stage.removeAllChildren();
 
-        this.draw(this._map.render());
+        this.draw(this._map.renderTiles());
+        this.draw(this._map.renderPieces());
+
 
         this._stage.update();
     }
