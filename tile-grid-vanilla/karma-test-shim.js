@@ -27,6 +27,12 @@ var allSpecFiles = Object.keys(window.__karma__.files)
     .filter(isSpecFile)
     .filter(isBuiltFile);
 
+System.config({
+    baseURL: 'base',
+    // Extend usual application package list with test folder
+    packages: { 'testing': { main: 'index.js', defaultExtension: 'js' } }
+});
+
 System.import('systemjs.config.js')
     .then(initTesting);
 
