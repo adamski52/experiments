@@ -167,8 +167,10 @@ describe("Map class", () => {
         });
 
         it("should highlight the clicked tile", () => {
-            center.getElement().click();
+            center.getElement().dispatchEvent("click");
             expect(center.getStyle().fill).toBe(config.FILL_ACTIVE_COLOR);
         });
+
+
     });
 });

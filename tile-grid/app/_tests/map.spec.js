@@ -137,7 +137,7 @@ describe("Map class", function () {
             expect(neighbors.se.row).toBe(3);
         });
         it("should highlight the clicked tile", function () {
-            center.getElement().click();
+            center.getElement().dispatchEvent("click");
             expect(center.getStyle().fill).toBe(config.FILL_ACTIVE_COLOR);
         });
     });

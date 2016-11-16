@@ -13,6 +13,10 @@ export class App {
     private _state:State;
     private CONFIG:CONFIG;
     private _map:Map;
+    private _ticks:number = 0;
+    private _frames:number = 0;
+    private tps:number = 0;
+    private fps:number = 0;
 
     constructor() {
         this.CONFIG = new CONFIG();
@@ -20,10 +24,11 @@ export class App {
     }
 
     private tick():void {
-
+        this._ticks++;
     }
 
     private draw(items:Array<any>):void {
+        this._frames++;
         for(let item of items) {
             this._stage.addChild(item.getElement());
         }
@@ -37,7 +42,7 @@ export class App {
         this._stage.update();
     }
 
-    private run():void {
+    private loop():void {
         if(this._state.isPaused()) {
             return;
         }
@@ -60,8 +65,16 @@ export class App {
         this._map = new Map(this.CONFIG);
 
         window.setInterval(() => {
-            this.run();
-        }, 0);
+            this.loop();
+        }, 1);
+
+        window.setInterval(() => {
+            this.fps = this._frames;
+            this.tps = this._ticks;
+
+            this._frames = 0;
+            this._ticks = 0;
+        }, 1000);
     }
 
     ngOnInit() {

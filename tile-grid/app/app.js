@@ -14,12 +14,18 @@ var config_1 = require("./config/config");
 var map_1 = require("./map/map");
 var App = (function () {
     function App() {
+        this._ticks = 0;
+        this._frames = 0;
+        this.tps = 0;
+        this.fps = 0;
         this.CONFIG = new config_1.CONFIG();
         this._state = new state_1.State();
     }
     App.prototype.tick = function () {
+        this._ticks++;
     };
     App.prototype.draw = function (items) {
+        this._frames++;
         for (var _i = 0, items_1 = items; _i < items_1.length; _i++) {
             var item = items_1[_i];
             this._stage.addChild(item.getElement());
@@ -30,7 +36,7 @@ var App = (function () {
         this.draw(this._map.render());
         this._stage.update();
     };
-    App.prototype.run = function () {
+    App.prototype.loop = function () {
         if (this._state.isPaused()) {
             return;
         }
@@ -47,8 +53,14 @@ var App = (function () {
         this._stage = new createjs.Stage(this.CONFIG.STAGE_ID);
         this._map = new map_1.Map(this.CONFIG);
         window.setInterval(function () {
-            _this.run();
-        }, 0);
+            _this.loop();
+        }, 1);
+        window.setInterval(function () {
+            _this.fps = _this._frames;
+            _this.tps = _this._ticks;
+            _this._frames = 0;
+            _this._ticks = 0;
+        }, 1000);
     };
     App.prototype.ngOnInit = function () {
         this.start();
