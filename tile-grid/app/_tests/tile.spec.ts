@@ -44,7 +44,7 @@ describe("Tile class", () => {
             row = 2;
 
             selectedTile = getTile(tiles, col, row);
-            neighbors = map.getTileNeighbors(selectedTile);
+            neighbors = selectedTile.getNeighbors();
         });
 
         it("should have a north neighbor", () => {
@@ -91,7 +91,7 @@ describe("Tile class", () => {
             row = 3;
 
             selectedTile = getTile(tiles, col, row);
-            neighbors = map.getTileNeighbors(selectedTile);
+            neighbors = selectedTile.getNeighbors();
         });
 
         it("should have a north neighbor", () => {

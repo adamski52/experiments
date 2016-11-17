@@ -2,9 +2,11 @@ import {Subject} from 'rxjs/Subject';
 import {CONFIG} from "../config/config";
 import {Observable} from "rxjs/Observable";
 import {ITileStyle} from "../interfaces/tile-style";
+import {ITileNeighbors} from "../interfaces/tile-neighbors";
 
 export class Tile {
     private _shape:createjs.Shape;
+    private _grid:Array<Tile>;
 
     // i dont have an answer to this quite yet.  pixels being rectangular or something?
     // every 50px of tile size creates 7 pixels of y-offset.
@@ -15,8 +17,8 @@ export class Tile {
     public row:number;
     public col:number;
 
-    private onClick:Subject<Tile> = new Subject<Tile>();
-    public onClick$:Observable<Tile> = this.onClick.asObservable();
+    private onHint:Subject<Tile> = new Subject<Tile>();
+    public onHint$:Observable<Tile> = this.onHint.asObservable();
 
     constructor(private _x:number, private _y:number, private CONFIG:CONFIG) {
         this.row = this._y;
@@ -32,9 +34,31 @@ export class Tile {
 
         this.render();
 
-        this._shape.addEventListener("click", () => {
-            this.onClick.next(this);
+        this._shape.on("mouseover", (e) => {
+            this.onMouseOver(e);
         });
+
+        this._shape.on("mouseout", (e) => {
+            this.onMouseOut(e);
+        })
+    }
+
+    private onMouseOut(e:Event):void {
+        this._style.fill = this._style.fill === this.CONFIG.STYLES.TILE.FILL.ACTIVE ? this.CONFIG.STYLES.TILE.FILL.HINT : this.CONFIG.STYLES.TILE.FILL.COLOR;
+    }
+
+    private onMouseOver(e:Event):void {
+        if(this._style.fill === this.CONFIG.STYLES.TILE.FILL.HINT) {
+            this.activate();
+        }
+    }
+
+    public setGrid(grid:Array<Tile):void {
+        this._grid = grid;
+    }
+
+    public showHint():void {
+        this.onHint.next();
     }
 
     private render():void {
@@ -50,8 +74,20 @@ export class Tile {
         this._style.fill = this.CONFIG.STYLES.TILE.FILL.ACTIVE;
     }
 
+    public isActive():boolean {
+        return this._style.fill === this.CONFIG.STYLES.TILE.FILL.ACTIVE;
+    }
+
     public hint():void {
         this._style.fill = this.CONFIG.STYLES.TILE.FILL.HINT;
+    }
+
+    public isHint():boolean {
+        return this._style.fill === this.CONFIG.STYLES.TILE.FILL.HINT;
+    }
+
+    public reset():void {
+        this._style.fill = this.CONFIG.STYLES.TILE.FILL.COLOR;
     }
 
     public setPosition(x:number, y:number):void {
@@ -75,5 +111,85 @@ export class Tile {
 
     public getStyle():ITileStyle {
         return this._style;
+    }
+
+
+    private getNorthNeighbor():Tile | undefined {
+        var row:number = this.row - 2,
+            col:number = this.col;
+
+
+        if(row < 0) {
+            return;
+        }
+
+        return this._grid[row][col];
+    }
+
+    private getSouthNeighbor():Tile | undefined {
+        var row:number = this.row + 2,
+            col:number = this.col;
+
+        if(row >= this._grid.length) {
+            return;
+        }
+
+        return this._grid[row][col];
+    }
+
+    private getNorthwestNeighbor():Tile | undefined {
+        var row:number = this.row - 1,
+            col:number = this.row % 2 === 0 ? this.col - 1 : this.col;
+
+        if(col < 0 || row < 0) {
+            return;
+        }
+
+        return this._grid[row][col];
+    }
+
+    private getNortheastNeighbor():Tile | undefined {
+        var row:number = this.row - 1,
+            col:number = this.row % 2 === 0 ? this.col : this.col + 1;
+
+        if(row < 0 || col >= this._grid[row].length) {
+            return;
+        }
+
+        return this._grid[row][col];
+    }
+
+    private getSouthwestNeighbor():Tile | undefined {
+        var row:number = this.row + 1,
+            col:number = this.row % 2 === 0 ? this.col - 1: this.col;
+
+        if(row >= this._grid.length || col < 0) {
+            return;
+        }
+
+        return this._grid[row][col];
+    }
+
+    private getSoutheastNeighbor():Tile | undefined {
+        var row:number = this.row + 1,
+            col:number = this.row % 2 === 0 ? this.col : this.col + 1;
+
+        if(row >= this._grid.length || col >= this._grid[row].length) {
+            return;
+        }
+
+        return this._grid[row][col];
+    }
+
+    public getNeighbors():ITileNeighbors {
+
+        return {
+            n: this.getNorthNeighbor(),
+            ne: this.getNortheastNeighbor(),
+            se: this.getSoutheastNeighbor(),
+            s: this.getSouthNeighbor(),
+            sw: this.getSouthwestNeighbor(),
+            nw: this.getNorthwestNeighbor()
+        };
     }
 }

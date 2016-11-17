@@ -11,6 +11,50 @@ export class Pawn {
 
         this.moveTo(this._location);
         this.render();
+
+        this._shape.on("mousedown", (e) => {
+            this.onMouseDown(e);
+        });
+
+        this._shape.on("pressup", (e) => {
+            this.onMouseUp(e);
+        });
+    }
+
+    private hintTile(tile:Tile | undefined):void {
+        if(!tile) {
+            return;
+        }
+
+        tile.hint();
+    }
+
+    private resetAndMove(tile:Tile | undefined):void {
+        if(!tile) {
+            return;
+        }
+
+        if(tile.isActive()) {
+            this.moveTo(tile);
+        }
+
+        tile.reset();
+    }
+
+    private onMouseDown(e:Event):void {
+        var neighbors:ITileNeighbors = this._location.getNeighbors();
+        this.hintTile(neighbors.nw);
+        this.hintTile(neighbors.ne);
+        this.hintTile(neighbors.sw);
+        this.hintTile(neighbors.se);
+    }
+
+    private onMouseUp(e:Event):void {
+        var neighbors:ITileNeighbors = this._location.getNeighbors();
+        this.resetAndMove(neighbors.nw);
+        this.resetAndMove(neighbors.ne);
+        this.resetAndMove(neighbors.sw);
+        this.resetAndMove(neighbors.se);
     }
 
     public mayMoveTo(map:Map, destination:Tile):boolean {
@@ -30,6 +74,7 @@ export class Pawn {
 
     public moveTo(destination:Tile):void {
         this._location = destination;
+        this.render();
     }
 
     public render():void {
@@ -39,6 +84,6 @@ export class Pawn {
         this._shape.graphics.setStrokeStyle(this.CONFIG.STYLES.PAWN.STROKE.SIZE);
         this._shape.graphics.beginStroke(this.CONFIG.STYLES.PAWN.STROKE.COLOR);
         this._shape.graphics.beginFill(this.CONFIG.STYLES.PAWN.FILL.COLOR);
-        this._shape.graphics.drawRect(loc.x, loc.y, this.CONFIG.STYLES.PAWN.SIZE, this.CONFIG.STYLES.PAWN.SIZE);
+        this._shape.graphics.drawRect(loc.x - this.CONFIG.STYLES.PAWN.SIZE/2, loc.y- this.CONFIG.STYLES.PAWN.SIZE/2, this.CONFIG.STYLES.PAWN.SIZE, this.CONFIG.STYLES.PAWN.SIZE);
     }
 }

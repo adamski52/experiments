@@ -1,7 +1,6 @@
 import {Tile} from "./tile";
 import {CONFIG} from "../config/config";
 import {CONSTANTS} from "../config/constants";
-import {ITileNeighbors} from "../interfaces/tile-neighbors";
 import {Pawn} from "../pieces/pawn";
 
 export class Map {
@@ -23,9 +22,6 @@ export class Map {
         for(var x = 0; x < this.CONFIG.DISPLAY.MAP_WIDTH; x++) {
             for(var y = 0; y < this.CONFIG.DISPLAY.MAP_HEIGHT; y++) {
                 tile = new Tile(x, y, this.CONFIG);
-                tile.onClick$.subscribe(tile => {
-                    this.onTileClick(tile);
-                });
                 this._tiles.push(tile);
             }
         }
@@ -37,27 +33,19 @@ export class Map {
 
             this._grid[tile.row][tile.col] = tile;
         }
+
+        for(var tile of this._tiles) {
+            tile.setGrid(this._grid);
+        }
     }
 
     private createPieces():void {
-        var pawn:Pawn = new Pawn(this.CONFIG, this._grid[1][1]);
-        this._pieces.push(pawn);
-    }
-
-    private onTileClick(tile:Tile):ITileNeighbors {
-        var neighbors:ITileNeighbors = this.getTileNeighbors(tile);
-
-        tile.activate();
-
-        for(let n in neighbors) {
-            if(neighbors[n]) {
-                neighbors[n].hint();
-            }
+        var piece:Pawn;
+        for(var p in this.CONFIG.BOARD.PAWNS) {
+            piece = new Pawn(this.CONFIG, this._grid[this.CONFIG.BOARD.PAWNS[p].row][this.CONFIG.BOARD.PAWNS[p].col]);
+            this._pieces.push(piece);
         }
-
-        return neighbors;
     }
-
 
     public renderTiles():Array<Tile> {
         return this._tiles;
@@ -65,85 +53,5 @@ export class Map {
 
     public renderPieces():Array<Pawn> {
         return this._pieces;
-    }
-
-    private figureNorth(tile:Tile):Tile | undefined {
-        var row:number = tile.row - 2,
-            col:number = tile.col;
-
-
-        if(row < 0) {
-            return;
-        }
-
-        return this._grid[row][col];
-    }
-
-    private figureSouth(tile:Tile):Tile | undefined {
-        var row:number = tile.row + 2,
-            col:number = tile.col;
-
-        if(row >= this._grid.length) {
-            return;
-        }
-
-        return this._grid[row][col];
-    }
-
-
-    private figureNorthWest(tile:Tile):Tile | undefined {
-        var row:number = tile.row - 1,
-            col:number = tile.row % 2 === 0 ? tile.col - 1 : tile.col;
-
-        if(col < 0 || row < 0) {
-            return;
-        }
-
-        return this._grid[row][col];
-    }
-
-    private figureNorthEast(tile:Tile):Tile | undefined {
-        var row:number = tile.row - 1,
-            col:number = tile.row % 2 === 0 ? tile.col : tile.col + 1;
-
-        if(row < 0 || col >= this._grid[row].length) {
-            return;
-        }
-
-        return this._grid[row][col];
-    }
-
-    private figureSouthWest(tile:Tile):Tile | undefined {
-        var row:number = tile.row + 1,
-            col:number = tile.row % 2 === 0 ? tile.col - 1: tile.col;
-
-        if(row >= this._grid.length || col < 0) {
-            return;
-        }
-
-        return this._grid[row][col];
-    }
-
-    private figureSouthEast(tile:Tile):Tile | undefined {
-        var row:number = tile.row + 1,
-            col:number = tile.row % 2 === 0 ? tile.col : tile.col + 1;
-
-        if(row >= this._grid.length || col >= this._grid[row].length) {
-            return;
-        }
-
-        return this._grid[row][col];
-    }
-
-    public getTileNeighbors(tile:Tile):ITileNeighbors {
-
-        return {
-            n: this.figureNorth(tile),
-            ne: this.figureNorthEast(tile),
-            se: this.figureSouthEast(tile),
-            s: this.figureSouth(tile),
-            sw: this.figureSouthWest(tile),
-            nw: this.figureNorthWest(tile)
-        };
     }
 }

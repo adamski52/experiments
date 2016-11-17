@@ -26,8 +26,24 @@ export class CONFIG {
                 COLOR: "#ff0000",
                 SIZE: 1
             },
-            SIZE: 20
+            SIZE: 50
         }
+    };
+
+    public BOARD:any = {
+        PAWNS: [{
+            col: 1,
+            row: 1
+        }, {
+            col: 2,
+            row: 2
+        }],
+        BISHOPS: [],
+        ROOKS: [],
+        KINGS: [],
+        QUEENS: [],
+        DON_JOHNSONS: [],
+        HORSIE_NEIGH_NEIGHS: []
     };
 
     public DISPLAY:any = {
