@@ -6,7 +6,7 @@ import {ITileNeighbors} from "../interfaces/tile-neighbors";
 
 export class Tile {
     private _shape:createjs.Shape;
-    private _grid:Array<Tile>;
+    private _grid:Array<Array<Tile>>;
 
     // i dont have an answer to this quite yet.  pixels being rectangular or something?
     // every 50px of tile size creates 7 pixels of y-offset.
@@ -43,17 +43,17 @@ export class Tile {
         })
     }
 
-    private onMouseOut(e:Event):void {
+    private onMouseOut(e:Object):void {
         this._style.fill = this._style.fill === this.CONFIG.STYLES.TILE.FILL.ACTIVE ? this.CONFIG.STYLES.TILE.FILL.HINT : this.CONFIG.STYLES.TILE.FILL.COLOR;
     }
 
-    private onMouseOver(e:Event):void {
+    private onMouseOver(e:Object):void {
         if(this._style.fill === this.CONFIG.STYLES.TILE.FILL.HINT) {
             this.activate();
         }
     }
 
-    public setGrid(grid:Array<Tile):void {
+    public setGrid(grid:Array<Array<Tile>>):void {
         this._grid = grid;
     }
 

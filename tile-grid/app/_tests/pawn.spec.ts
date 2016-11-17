@@ -3,6 +3,8 @@ import {CONSTANTS} from "../config/constants";
 import {Map} from "../map/map";
 import {Tile} from "../map/tile";
 import {ITileNeighbors} from "../interfaces/tile-neighbors";
+import {Pawn} from "../pieces/pawn";
+
 
 describe("Pawn class", () => {
     describe("piece placement", () => {

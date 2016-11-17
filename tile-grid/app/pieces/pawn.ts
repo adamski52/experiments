@@ -41,7 +41,7 @@ export class Pawn {
         tile.reset();
     }
 
-    private onMouseDown(e:Event):void {
+    private onMouseDown(e:Object):void {
         var neighbors:ITileNeighbors = this._location.getNeighbors();
         this.hintTile(neighbors.nw);
         this.hintTile(neighbors.ne);
@@ -49,7 +49,7 @@ export class Pawn {
         this.hintTile(neighbors.se);
     }
 
-    private onMouseUp(e:Event):void {
+    private onMouseUp(e:Object):void {
         var neighbors:ITileNeighbors = this._location.getNeighbors();
         this.resetAndMove(neighbors.nw);
         this.resetAndMove(neighbors.ne);
@@ -58,7 +58,7 @@ export class Pawn {
     }
 
     public mayMoveTo(map:Map, destination:Tile):boolean {
-        var neighbors:ITileNeighbors = map.getTileNeighbors(this._location);
+        var neighbors:ITileNeighbors = this._location.getNeighbors();
         for(var n in neighbors) {
             if(neighbors[n] && neighbors[n] === destination) {
                 return true;
