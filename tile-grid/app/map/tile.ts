@@ -6,6 +6,7 @@ import {ITileNeighbors} from "../interfaces/tile-neighbors";
 
 export class Tile {
     private _shape:createjs.Shape;
+    private _container:createjs.Container;
     private _grid:Array<Array<Tile>>;
 
     // i dont have an answer to this quite yet.  pixels being rectangular or something?
@@ -30,15 +31,14 @@ export class Tile {
             strokeSize: this.CONFIG.STYLES.TILE.STROKE.SIZE
         };
 
+        this._container = new createjs.Container();
         this._shape = new createjs.Shape();
 
-        this.render();
-
-        this._shape.on("mouseover", (e) => {
+        this._container.on("mouseover", (e) => {
             this.onMouseOver(e);
         });
 
-        this._shape.on("mouseout", (e) => {
+        this._container.on("mouseout", (e) => {
             this.onMouseOut(e);
         })
     }
@@ -61,12 +61,17 @@ export class Tile {
         this.onHint.next();
     }
 
-    private render():void {
+    public render():void {
+        this._container.removeAllChildren();
+
         this._shape.graphics.clear();
         this._shape.graphics.setStrokeStyle(this._style.strokeSize);
         this._shape.graphics.beginStroke(this._style.strokeColor);
         this._shape.graphics.beginFill(this._style.fill);
         this._shape.graphics.drawPolyStar(0, 0, this.CONFIG.STYLES.TILE.SIZE, 6, 0, 0);
+
+        this._container.addChild(this._shape);
+
         this.setPosition(this._x, this._y);
     }
 
@@ -95,18 +100,17 @@ export class Tile {
         this._y = y;
 
         if(this._y % 2 === 0) {
-            this._shape.x = (this._x * this.CONFIG.STYLES.TILE.SIZE * 3) + this.CONFIG.STYLES.TILE.SIZE;
+            this._container.x = (this._x * this.CONFIG.STYLES.TILE.SIZE * 3) + this.CONFIG.STYLES.TILE.SIZE;
         }
         else {
-            this._shape.x = (this._x * this.CONFIG.STYLES.TILE.SIZE * 3) + (this.CONFIG.STYLES.TILE.SIZE * 1.5) + this.CONFIG.STYLES.TILE.SIZE;
+            this._container.x = (this._x * this.CONFIG.STYLES.TILE.SIZE * 3) + (this.CONFIG.STYLES.TILE.SIZE * 1.5) + this.CONFIG.STYLES.TILE.SIZE;
         }
 
-        this._shape.y = (this._y * (this.CONFIG.STYLES.TILE.SIZE - this._offset)) + this.CONFIG.STYLES.TILE.SIZE - this._offset;
+        this._container.y = (this._y * (this.CONFIG.STYLES.TILE.SIZE - this._offset)) + this.CONFIG.STYLES.TILE.SIZE - this._offset;
     }
 
-    public getElement():createjs.Shape {
-        this.render();
-        return this._shape;
+    public getElement():createjs.Container {
+        return this._container;
     }
 
     public getStyle():ITileStyle {

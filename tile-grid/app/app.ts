@@ -28,11 +28,10 @@ export class App {
         this.draw(this._map.renderTiles());
         this.draw(this._map.renderPieces());
 
-
         this._stage.update();
     }
 
-    private loop():void {
+    public loop():void {
         if(this._state.isPaused()) {
             return;
         }

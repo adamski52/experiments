@@ -1,4 +1,5 @@
 import {Piece} from "./piece";
+import {Tile} from "../map/tile";
 
 export class DonJohnson extends Piece {
     protected onMouseDown(e:Object):void {

@@ -59,10 +59,16 @@ export class Map {
     }
 
     public renderTiles():Array<Tile> {
+        for(var t in this._tiles) {
+            this._tiles[t].render();
+        }
         return this._tiles;
     }
 
     public renderPieces():Array<Piece> {
+        for(var p in this._pieces) {
+            this._pieces[p].render();
+        }
         return this._pieces;
     }
 }

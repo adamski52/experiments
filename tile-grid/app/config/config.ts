@@ -30,7 +30,7 @@ export class CONFIG {
         },
         DON_JOHNSON: {
             FILL: {
-                COLOR: "#ffcc00"
+                IMAGE: "images/don-johnson.jpg"
             },
             STROKE: {
                 COLOR: "#f4dc42",
