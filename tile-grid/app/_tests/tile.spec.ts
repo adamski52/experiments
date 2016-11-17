@@ -24,6 +24,13 @@ describe("Tile class", () => {
 
     config.DISPLAY.MAP_WIDTH = 3;
     config.DISPLAY.MAP_HEIGHT = 6;
+    config.BOARD.PAWNS = [];
+    config.BOARD.BISHOPS = [];
+    config.BOARD.DON_JOHNSONS = [];
+    config.BOARD.HORSIE_NEIGH_NEIGHS = [];
+    config.BOARD.KINGS = [];
+    config.BOARD.QUEENS = [];
+    config.BOARD.ROOKS = [];
 
     map = new Map(config);
     tiles = map.renderTiles();

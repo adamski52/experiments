@@ -1,12 +1,14 @@
 import {Tile} from "./tile";
 import {CONFIG} from "../config/config";
 import {CONSTANTS} from "../config/constants";
+import {Piece} from "../pieces/piece";
 import {Pawn} from "../pieces/pawn";
+import {DonJohnson} from "../pieces/don-johnson";
 
 export class Map {
     private _tiles:Array<Tile> = [];
     private _grid:Array<Array<Tile>> = [];
-    private _pieces:Array<Pawn> = [];
+    private _pieces:Array<Piece> = [];
 
     constructor(private CONFIG:CONFIG) {
         if(this.CONFIG.DISPLAY.MAP_WIDTH <= 1 || this.CONFIG.DISPLAY.MAP_HEIGHT <= 1) {
@@ -40,18 +42,27 @@ export class Map {
     }
 
     private createPieces():void {
-        var piece:Pawn;
-        for(var p in this.CONFIG.BOARD.PAWNS) {
-            piece = new Pawn(this.CONFIG, this._grid[this.CONFIG.BOARD.PAWNS[p].row][this.CONFIG.BOARD.PAWNS[p].col]);
+        var piece:Piece;
+        for(let p in this.CONFIG.BOARD.PAWNS) {
+            piece = new Pawn(this._grid[this.CONFIG.BOARD.PAWNS[p].row][this.CONFIG.BOARD.PAWNS[p].col], this._grid, this.CONFIG.STYLES.PAWN);
             this._pieces.push(piece);
         }
+
+        for(let p in this.CONFIG.BOARD.DON_JOHNSONS) {
+            piece = new DonJohnson(this._grid[this.CONFIG.BOARD.DON_JOHNSONS[p].row][this.CONFIG.BOARD.DON_JOHNSONS[p].col], this._grid, this.CONFIG.STYLES.DON_JOHNSON);
+            this._pieces.push(piece);
+        }
+    }
+
+    public getGrid():Array<Array<Tile>> {
+        return this._grid;
     }
 
     public renderTiles():Array<Tile> {
         return this._tiles;
     }
 
-    public renderPieces():Array<Pawn> {
+    public renderPieces():Array<Piece> {
         return this._pieces;
     }
 }

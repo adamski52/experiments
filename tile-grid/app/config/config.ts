@@ -27,6 +27,16 @@ export class CONFIG {
                 SIZE: 1
             },
             SIZE: 50
+        },
+        DON_JOHNSON: {
+            FILL: {
+                COLOR: "#ffcc00"
+            },
+            STROKE: {
+                COLOR: "#f4dc42",
+                SIZE: 2
+            },
+            SIZE: 75
         }
     };
 
@@ -42,7 +52,10 @@ export class CONFIG {
         ROOKS: [],
         KINGS: [],
         QUEENS: [],
-        DON_JOHNSONS: [],
+        DON_JOHNSONS: [{
+            row: 0,
+            col: 2
+        }],
         HORSIE_NEIGH_NEIGHS: []
     };
 

@@ -6,7 +6,7 @@ import {ITileNeighbors} from "../interfaces/tile-neighbors";
 import {Piece} from "../pieces/piece";
 
 
-describe("Pawn class", () => {
+describe("Don Johnson class", () => {
     var config:CONFIG,
         map:Map,
         pieces:Array<Piece>;
@@ -16,7 +16,7 @@ describe("Pawn class", () => {
         config.DISPLAY.MAP_HEIGHT= 5;
         config.DISPLAY.MAP_WIDTH = 5;
 
-        config.BOARD.PAWNS = [{
+        config.BOARD.DON_JOHNSONS = [{
             row: 0,
             col: 0
         }, {
@@ -25,7 +25,7 @@ describe("Pawn class", () => {
         }];
 
         config.BOARD.BISHOPS = [];
-        config.BOARD.DON_JOHNSONS = [];
+        config.BOARD.PAWNS = [];
         config.BOARD.HORSIE_NEIGH_NEIGHS = [];
         config.BOARD.KINGS = [];
         config.BOARD.QUEENS = [];
@@ -51,24 +51,15 @@ describe("Pawn class", () => {
     });
 
     describe("piece movement", () => {
-        it("should hint that it can move diagonally.", () => {
+        it("should hint that it can move anywhere.", () => {
             pieces[1].getElement().dispatchEvent("mousedown");
 
-            var neighbors:ITileNeighbors = pieces[1].getLocation().getNeighbors();
-
-            expect(neighbors.nw.getStyle().fill).toBe(config.STYLES.TILE.FILL.HINT);
-            expect(neighbors.ne.getStyle().fill).toBe(config.STYLES.TILE.FILL.HINT);
-            expect(neighbors.sw.getStyle().fill).toBe(config.STYLES.TILE.FILL.HINT);
-            expect(neighbors.se.getStyle().fill).toBe(config.STYLES.TILE.FILL.HINT);
-        });
-
-        it("should not hint that it can move north or south.", () => {
-            pieces[1].getElement().dispatchEvent("mousedown");
-
-            var neighbors:ITileNeighbors = pieces[1].getLocation().getNeighbors();
-
-            expect(neighbors.n.getStyle().fill).toBe(config.STYLES.TILE.FILL.COLOR);
-            expect(neighbors.s.getStyle().fill).toBe(config.STYLES.TILE.FILL.COLOR);
+            var grid:Array<Array<Tile>> = map.getGrid();
+            for(var r:number = 0; r < grid.length; r++) {
+                for(var c:number = 0; c < grid[r].length; c++) {
+                    expect(grid[r][c].getStyle().fill).toBe(config.STYLES.TILE.FILL.HINT);
+                }
+            }
         });
     });
 });
