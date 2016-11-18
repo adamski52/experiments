@@ -58,12 +58,22 @@ export abstract class Piece {
     }
 
     protected figureCardinalMovement():void {
-        for(var c in this._grid[this._location.row]) {
-            this.hintTile(this._grid[this._location.row][c]);
+        var neighbors:ITileNeighbors;
+
+        neighbors = this._location.getNeighbors();
+        while(neighbors.n) {
+            this.hintTile(neighbors.n);
+            neighbors = neighbors.n.getNeighbors();
         }
 
-        for(var r:number = 0; r < this._grid.length; r+=2) {
-            this.hintTile(this._grid[r][this._location.col]);
+        neighbors = this._location.getNeighbors();
+        while(neighbors.s) {
+            this.hintTile(neighbors.s);
+            neighbors = neighbors.s.getNeighbors();
+        }
+
+        for(var c of this._grid[this._location.row]) {
+            this.hintTile(this._grid[this._location.row][c.col]);
         }
     }
 
