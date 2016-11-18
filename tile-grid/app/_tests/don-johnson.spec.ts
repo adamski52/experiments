@@ -80,7 +80,7 @@ describe("Don Johnson class", () => {
 
         it("should load a background image.", () => {
             expect(pieces[0].getStyle().backgroundImage).toBeDefined();
-            expect(pieces[0].getStyle().backgroundImage.image.src.indexOf(config.STYLES.DON_JOHNSON.FILL.IMAGE)).toBeGreaterThanOrEqual(0);
+            expect(pieces[0].getStyle().backgroundImage.image.src.indexOf(config.STYLES.DON_JOHNSONS.FILL.IMAGE)).toBeGreaterThanOrEqual(0);
         });
     });
 });

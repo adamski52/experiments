@@ -1,4 +1,5 @@
 import {Tile} from "../map/tile";
+import {ITileNeighbors} from "../interfaces/tile-neighbors";
 
 export abstract class Piece {
     protected _container:createjs.Container;
@@ -47,6 +48,63 @@ export abstract class Piece {
             backgroundImage: this._backgroundImage,
             style: this._style
         };
+    }
+
+    protected figureSingleTileMovement(directions:Array<string>):void {
+        var neighbors:ITileNeighbors = this._location.getNeighbors();
+        for(var d of directions) {
+            this.hintTile(neighbors[d]);
+        }
+    }
+
+    protected figureCardinalMovement():void {
+        for(var c in this._grid[this._location.row]) {
+            this.hintTile(this._grid[this._location.row][c]);
+        }
+
+        for(var r:number = 0; r < this._grid.length; r+=2) {
+            this.hintTile(this._grid[r][this._location.col]);
+        }
+    }
+
+    protected figureDiagonalMovement():void {
+        this.testDiagonalMovement("nw");
+        this.testDiagonalMovement("sw");
+        this.testDiagonalMovement("ne");
+        this.testDiagonalMovement("se");
+    }
+
+    private testDiagonalMovement(which:string):void {
+        var neighbors:ITileNeighbors = this._location.getNeighbors();
+
+        while(neighbors[which]) {
+            this.hintTile(neighbors[which]);
+            neighbors = neighbors[which].getNeighbors();
+        }
+    }
+
+
+
+
+    protected figureRightAngleMovement() {
+        this.testRightAngleMovement(this._location.row+4, this._location.col);
+        this.testRightAngleMovement(this._location.row-4, this._location.col);
+
+        this.testRightAngleMovement(this._location.row, this._location.col + 2);
+        this.testRightAngleMovement(this._location.row, this._location.col - 2);
+    }
+
+    private testRightAngleMovement(row:number, col:number) {
+        if(row < 0 || row >= this._grid.length || col < 0 || col >= this._grid[row].length) {
+            return;
+        }
+
+        var neighbors:ITileNeighbors = this._grid[row][col].getNeighbors()
+
+        this.hintTile(neighbors.nw);
+        this.hintTile(neighbors.sw);
+        this.hintTile(neighbors.ne);
+        this.hintTile(neighbors.se);
     }
 
     private createShape():void {
@@ -104,7 +162,13 @@ export abstract class Piece {
 
     protected abstract onMouseDown(e:Object):void;
 
-    protected abstract onMouseUp(e:Object):void;
+    protected onMouseUp(e:Object):void {
+         for(var r:number = 0; r < this._grid.length; r++) {
+            for(var c:number = 0; c < this._grid[r].length; c++) {
+                this.resetAndMove(this._grid[r][c]);
+            }
+        }
+    }
 
     public getElement():createjs.Container {
         return this._container;

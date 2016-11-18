@@ -4,6 +4,11 @@ import {CONSTANTS} from "../config/constants";
 import {Piece} from "../pieces/piece";
 import {Pawn} from "../pieces/pawn";
 import {DonJohnson} from "../pieces/don-johnson";
+import {Rook} from "../pieces/rook";
+import {Bishop} from "../pieces/bishop";
+import {HorsieNeighNeigh} from "../pieces/horsie-neigh-neigh";
+import {King} from "../pieces/king";
+import {Queen} from "../pieces/queen";
 
 export class Map {
     private _tiles:Array<Tile> = [];
@@ -42,16 +47,51 @@ export class Map {
     }
 
     private createPieces():void {
-        var piece:Piece;
-        for(let p in this.CONFIG.BOARD.PAWNS) {
-            piece = new Pawn(this._grid[this.CONFIG.BOARD.PAWNS[p].row][this.CONFIG.BOARD.PAWNS[p].col], this._grid, this.CONFIG.STYLES.PAWN);
+        var piece:Piece,
+            manImLazy:string;
+
+        manImLazy = "ROOKS";
+        for(let p in this.CONFIG.BOARD[manImLazy]) {
+            piece = new Rook(this._grid[this.CONFIG.BOARD[manImLazy][p].row][this.CONFIG.BOARD[manImLazy][p].col], this._grid, this.CONFIG.STYLES[manImLazy]);
             this._pieces.push(piece);
         }
 
-        for(let p in this.CONFIG.BOARD.DON_JOHNSONS) {
-            piece = new DonJohnson(this._grid[this.CONFIG.BOARD.DON_JOHNSONS[p].row][this.CONFIG.BOARD.DON_JOHNSONS[p].col], this._grid, this.CONFIG.STYLES.DON_JOHNSON);
+        manImLazy = "HORSIE_NEIGH_NEIGHS";
+        for(let p in this.CONFIG.BOARD[manImLazy]) {
+            piece = new HorsieNeighNeigh(this._grid[this.CONFIG.BOARD[manImLazy][p].row][this.CONFIG.BOARD[manImLazy][p].col], this._grid, this.CONFIG.STYLES[manImLazy]);
             this._pieces.push(piece);
         }
+
+        manImLazy = "BISHOPS";
+        for(let p in this.CONFIG.BOARD[manImLazy]) {
+            piece = new Bishop(this._grid[this.CONFIG.BOARD[manImLazy][p].row][this.CONFIG.BOARD[manImLazy][p].col], this._grid, this.CONFIG.STYLES[manImLazy]);
+            this._pieces.push(piece);
+        }
+
+        manImLazy = "QUEENS";
+        for(let p in this.CONFIG.BOARD[manImLazy]) {
+            piece = new Queen(this._grid[this.CONFIG.BOARD[manImLazy][p].row][this.CONFIG.BOARD[manImLazy][p].col], this._grid, this.CONFIG.STYLES[manImLazy]);
+            this._pieces.push(piece);
+        }
+
+        manImLazy = "KINGS";
+        for(let p in this.CONFIG.BOARD[manImLazy]) {
+            piece = new King(this._grid[this.CONFIG.BOARD[manImLazy][p].row][this.CONFIG.BOARD[manImLazy][p].col], this._grid, this.CONFIG.STYLES[manImLazy]);
+            this._pieces.push(piece);
+        }
+
+        manImLazy = "DON_JOHNSONS";
+        for(let p in this.CONFIG.BOARD[manImLazy]) {
+            piece = new DonJohnson(this._grid[this.CONFIG.BOARD[manImLazy][p].row][this.CONFIG.BOARD[manImLazy][p].col], this._grid, this.CONFIG.STYLES[manImLazy]);
+            this._pieces.push(piece);
+        }
+
+        manImLazy = "PAWNS";
+        for(let p in this.CONFIG.BOARD[manImLazy]) {
+            piece = new Pawn(this._grid[this.CONFIG.BOARD[manImLazy][p].row][this.CONFIG.BOARD[manImLazy][p].col], this._grid, this.CONFIG.STYLES[manImLazy]);
+            this._pieces.push(piece);
+        }
+
     }
 
     public getGrid():Array<Array<Tile>> {

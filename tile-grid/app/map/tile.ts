@@ -19,11 +19,11 @@ export class Tile {
     constructor(private _x:number, private _y:number, private CONFIG:CONFIG) {
         this.row = this._y;
         this.col = this._x;
-        this._offset = Math.floor((this.CONFIG.STYLES.TILE.SIZE / 50))*7;
+        this._offset = Math.floor((this.CONFIG.STYLES.TILES.SIZE / 50))*7;
         this._style = {
-            fill: this.CONFIG.STYLES.TILE.FILL.COLOR,
-            strokeColor: this.CONFIG.STYLES.TILE.STROKE.COLOR,
-            strokeSize: this.CONFIG.STYLES.TILE.STROKE.SIZE
+            fill: this.CONFIG.STYLES.TILES.FILL.COLOR,
+            strokeColor: this.CONFIG.STYLES.TILES.STROKE.COLOR,
+            strokeSize: this.CONFIG.STYLES.TILES.STROKE.SIZE
         };
 
         this._container = new createjs.Container();
@@ -39,11 +39,11 @@ export class Tile {
     }
 
     private onMouseOut(e:Object):void {
-        this._style.fill = this._style.fill === this.CONFIG.STYLES.TILE.FILL.ACTIVE ? this.CONFIG.STYLES.TILE.FILL.HINT : this.CONFIG.STYLES.TILE.FILL.COLOR;
+        this._style.fill = this._style.fill === this.CONFIG.STYLES.TILES.FILL.ACTIVE ? this.CONFIG.STYLES.TILES.FILL.HINT : this.CONFIG.STYLES.TILES.FILL.COLOR;
     }
 
     private onMouseOver(e:Object):void {
-        if(this._style.fill === this.CONFIG.STYLES.TILE.FILL.HINT) {
+        if(this._style.fill === this.CONFIG.STYLES.TILES.FILL.HINT) {
             this.activate();
         }
     }
@@ -59,7 +59,7 @@ export class Tile {
         this._shape.graphics.setStrokeStyle(this._style.strokeSize);
         this._shape.graphics.beginStroke(this._style.strokeColor);
         this._shape.graphics.beginFill(this._style.fill);
-        this._shape.graphics.drawPolyStar(0, 0, this.CONFIG.STYLES.TILE.SIZE, 6, 0, 0);
+        this._shape.graphics.drawPolyStar(0, 0, this.CONFIG.STYLES.TILES.SIZE, 6, 0, 0);
 
         this._container.addChild(this._shape);
 
@@ -67,23 +67,23 @@ export class Tile {
     }
 
     public activate():void {
-        this._style.fill = this.CONFIG.STYLES.TILE.FILL.ACTIVE;
+        this._style.fill = this.CONFIG.STYLES.TILES.FILL.ACTIVE;
     }
 
     public isActive():boolean {
-        return this._style.fill === this.CONFIG.STYLES.TILE.FILL.ACTIVE;
+        return this._style.fill === this.CONFIG.STYLES.TILES.FILL.ACTIVE;
     }
 
     public hint():void {
-        this._style.fill = this.CONFIG.STYLES.TILE.FILL.HINT;
+        this._style.fill = this.CONFIG.STYLES.TILES.FILL.HINT;
     }
 
     public isHint():boolean {
-        return this._style.fill === this.CONFIG.STYLES.TILE.FILL.HINT;
+        return this._style.fill === this.CONFIG.STYLES.TILES.FILL.HINT;
     }
 
     public reset():void {
-        this._style.fill = this.CONFIG.STYLES.TILE.FILL.COLOR;
+        this._style.fill = this.CONFIG.STYLES.TILES.FILL.COLOR;
     }
 
     public setPosition(x:number, y:number):void {
@@ -91,13 +91,13 @@ export class Tile {
         this._y = y;
 
         if(this._y % 2 === 0) {
-            this._container.x = (this._x * this.CONFIG.STYLES.TILE.SIZE * 3) + this.CONFIG.STYLES.TILE.SIZE;
+            this._container.x = (this._x * this.CONFIG.STYLES.TILES.SIZE * 3) + this.CONFIG.STYLES.TILES.SIZE;
         }
         else {
-            this._container.x = (this._x * this.CONFIG.STYLES.TILE.SIZE * 3) + (this.CONFIG.STYLES.TILE.SIZE * 1.5) + this.CONFIG.STYLES.TILE.SIZE;
+            this._container.x = (this._x * this.CONFIG.STYLES.TILES.SIZE * 3) + (this.CONFIG.STYLES.TILES.SIZE * 1.5) + this.CONFIG.STYLES.TILES.SIZE;
         }
 
-        this._container.y = (this._y * (this.CONFIG.STYLES.TILE.SIZE - this._offset)) + this.CONFIG.STYLES.TILE.SIZE - this._offset;
+        this._container.y = (this._y * (this.CONFIG.STYLES.TILES.SIZE - this._offset)) + this.CONFIG.STYLES.TILES.SIZE - this._offset;
     }
 
     public getElement():createjs.Container {
