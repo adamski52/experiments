@@ -1,8 +1,6 @@
 import {CONFIG} from "../config/config";
-import {CONSTANTS} from "../config/constants";
 import {Map} from "../map/map";
 import {Tile} from "../map/tile";
-import {ITileNeighbors} from "../interfaces/tile-neighbors";
 import {Piece} from "../pieces/piece";
 
 describe("Don Johnson class", () => {
@@ -30,6 +28,10 @@ describe("Don Johnson class", () => {
         config.BOARD.QUEENS = [];
         config.BOARD.ROOKS = [];
 
+        config.STYLES.DON_JOHNSON.FILL = {
+            COLOR: "#ffcc00"
+        };
+
         map = new Map(config);
         map.renderTiles();
 
@@ -50,15 +52,13 @@ describe("Don Johnson class", () => {
     });
 
     describe("piece movement", () => {
-        xit("should hint that it can move anywhere.", () => {
+        it("should hint that it can move anywhere.", () => {
             pieces[1].getElement().dispatchEvent("mousedown");
 
             var grid:Array<Array<Tile>> = map.getGrid();
             for(var r:number = 0; r < grid.length; r++) {
                 for(var c:number = 0; c < grid[r].length; c++) {
-                    grid[r][c].render();
-                    console.log("??", r, c, grid[r][c].getStyle().fill);
-                    expect(grid[r][c].getStyle().fill).toBe(config.STYLES.TILE.FILL.HINT);
+                    expect(grid[r][c].isHint()).toBe(true);
                 }
             }
         });

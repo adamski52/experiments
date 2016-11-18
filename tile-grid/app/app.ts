@@ -53,7 +53,6 @@ export class App {
         this._stage = new createjs.Stage(this.CONFIG.IDS.STAGE_ID);
         this._stage.enableMouseOver(this.CONFIG.DISPLAY.FPS);
 
-
         this._map = new Map(this.CONFIG);
 
         window.setInterval(() => {

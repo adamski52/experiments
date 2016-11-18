@@ -56,10 +56,10 @@ describe("Pawn class", () => {
 
             var neighbors:ITileNeighbors = pieces[1].getLocation().getNeighbors();
 
-            expect(neighbors.nw.getStyle().fill).toBe(config.STYLES.TILE.FILL.HINT);
-            expect(neighbors.ne.getStyle().fill).toBe(config.STYLES.TILE.FILL.HINT);
-            expect(neighbors.sw.getStyle().fill).toBe(config.STYLES.TILE.FILL.HINT);
-            expect(neighbors.se.getStyle().fill).toBe(config.STYLES.TILE.FILL.HINT);
+            expect(neighbors.nw.isHint()).toBe(true);
+            expect(neighbors.ne.isHint()).toBe(true);
+            expect(neighbors.sw.isHint()).toBe(true);
+            expect(neighbors.se.isHint()).toBe(true);
         });
 
         it("should not hint that it can move north or south.", () => {
@@ -67,8 +67,8 @@ describe("Pawn class", () => {
 
             var neighbors:ITileNeighbors = pieces[1].getLocation().getNeighbors();
 
-            expect(neighbors.n.getStyle().fill).toBe(config.STYLES.TILE.FILL.COLOR);
-            expect(neighbors.s.getStyle().fill).toBe(config.STYLES.TILE.FILL.COLOR);
+            expect(neighbors.n.isHint()).toBe(false);
+            expect(neighbors.s.isHint()).toBe(false);
         });
     });
 });

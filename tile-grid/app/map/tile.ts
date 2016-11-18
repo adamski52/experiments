@@ -1,6 +1,4 @@
-import {Subject} from 'rxjs/Subject';
 import {CONFIG} from "../config/config";
-import {Observable} from "rxjs/Observable";
 import {ITileStyle} from "../interfaces/tile-style";
 import {ITileNeighbors} from "../interfaces/tile-neighbors";
 
@@ -17,9 +15,6 @@ export class Tile {
 
     public row:number;
     public col:number;
-
-    private onHint:Subject<Tile> = new Subject<Tile>();
-    public onHint$:Observable<Tile> = this.onHint.asObservable();
 
     constructor(private _x:number, private _y:number, private CONFIG:CONFIG) {
         this.row = this._y;
@@ -55,10 +50,6 @@ export class Tile {
 
     public setGrid(grid:Array<Array<Tile>>):void {
         this._grid = grid;
-    }
-
-    public showHint():void {
-        this.onHint.next();
     }
 
     public render():void {
@@ -112,11 +103,6 @@ export class Tile {
     public getElement():createjs.Container {
         return this._container;
     }
-
-    public getStyle():ITileStyle {
-        return this._style;
-    }
-
 
     private getNorthNeighbor():Tile | undefined {
         var row:number = this.row - 2,
