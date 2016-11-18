@@ -28,10 +28,6 @@ describe("Don Johnson class", () => {
         config.BOARD.QUEENS = [];
         config.BOARD.ROOKS = [];
 
-        config.STYLES.DON_JOHNSON.FILL = {
-            COLOR: "#ffcc00"
-        };
-
         map = new Map(config);
         map.renderTiles();
 
@@ -52,6 +48,15 @@ describe("Don Johnson class", () => {
     });
 
     describe("piece movement", () => {
+
+        // COOL IT
+        beforeEach((done) => {
+            setTimeout(function() {
+                done();
+            }, 2000);
+        }, 5000);
+
+
         it("should hint that it can move anywhere.", () => {
             pieces[1].getElement().dispatchEvent("mousedown");
 
@@ -61,6 +66,21 @@ describe("Don Johnson class", () => {
                     expect(grid[r][c].isHint()).toBe(true);
                 }
             }
+        });
+    });
+
+    describe("piece rendering", () => {
+
+        // COOL IT
+        beforeEach((done) => {
+            setTimeout(function() {
+                done();
+            }, 2000);
+        }, 5000);
+
+        it("should load a background image.", () => {
+            expect(pieces[0].getStyle().backgroundImage).toBeDefined();
+            expect(pieces[0].getStyle().backgroundImage.image.src.indexOf(config.STYLES.DON_JOHNSON.FILL.IMAGE)).toBeGreaterThanOrEqual(0);
         });
     });
 });

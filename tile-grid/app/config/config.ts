@@ -20,20 +20,46 @@ export class CONFIG {
         },
         PAWN: {
             FILL: {
-                COLOR: "#333333"
+                COLOR: "#b8d330"
             },
             STROKE: {
-                COLOR: "#ff0000",
+                COLOR: "#8fa522",
                 SIZE: 1
             },
-            SIZE: 50
+            SHAPE: {
+                SIDES: 8,
+                DEPTH: 0,
+                ANGLE: 0
+            },
+            SIZE: 30
         },
         DON_JOHNSON: {
             FILL: {
-                IMAGE: "images/don-johnson.jpg"
+                IMAGE: "images/don-johnson.jpg",
+                COLOR: "#ffcc00"
+            },
+            SHAPE: {
+                SIDES: 9,
+                DEPTH: .7,
+                ANGLE: 0
             },
             STROKE: {
-                COLOR: "#f4dc42",
+                COLOR: "#d3b830",
+                SIZE: 2
+            },
+            SIZE: 115
+        },
+        ROOK: {
+            FILL: {
+                COLOR: "#42cbf4"
+            },
+            SHAPE: {
+                SIDES: 5,
+                DEPTH: .7,
+                ANGLE: 0
+            },
+            STROKE: {
+                COLOR: "#3387a0",
                 SIZE: 2
             },
             SIZE: 75
