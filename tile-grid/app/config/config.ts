@@ -16,7 +16,10 @@ export class CONFIG {
                 COLOR: "#cccccc",
                 SIZE: 1
             },
-            SIZE: 50
+            SIZE: 30,
+            PADDING_OFFSET: 5,
+            TOP_OFFSET: 10,
+            LEFT_OFFSET: 10
         },
         ROOKS: {
             FILL: {
@@ -31,7 +34,7 @@ export class CONFIG {
                 COLOR: "#3387a0",
                 SIZE: 1
             },
-            SIZE: 30
+            SIZE: 15
         },
         HORSIE_NEIGH_NEIGHS: {
             FILL: {
@@ -46,7 +49,7 @@ export class CONFIG {
                 DEPTH: 0,
                 ANGLE: 17.5
             },
-            SIZE: 30
+            SIZE: 15
         },
         BISHOPS: {
             FILL: {
@@ -61,7 +64,7 @@ export class CONFIG {
                 DEPTH: 0,
                 ANGLE: 30
             },
-            SIZE: 30
+            SIZE: 15
         },
         QUEENS: {
             FILL: {
@@ -76,7 +79,7 @@ export class CONFIG {
                 DEPTH: .25,
                 ANGLE: 0
             },
-            SIZE: 40
+            SIZE: 20
         },
         KINGS: {
             FILL: {
@@ -91,7 +94,7 @@ export class CONFIG {
                 DEPTH: .25,
                 ANGLE: 0
             },
-            SIZE: 40
+            SIZE: 20
         },
         PAWNS: {
             FILL: {
@@ -106,7 +109,7 @@ export class CONFIG {
                 DEPTH: 0,
                 ANGLE: 0
             },
-            SIZE: 30
+            SIZE: 12
         },
         DON_JOHNSONS: {
             FILL: {
@@ -122,7 +125,7 @@ export class CONFIG {
                 COLOR: "#d3b830",
                 SIZE: 1
             },
-            SIZE: 80
+            SIZE: 40
         }
     };
 

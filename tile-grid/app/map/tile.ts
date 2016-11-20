@@ -19,7 +19,7 @@ export class Tile {
     constructor(private _x:number, private _y:number, private CONFIG:CONFIG) {
         this.row = this._y;
         this.col = this._x;
-        this._offset = Math.floor((this.CONFIG.STYLES.TILES.SIZE / 50))*7;
+        this._offset = this.CONFIG.STYLES.TILES.PADDING_OFFSET;
         this._style = {
             fill: this.CONFIG.STYLES.TILES.FILL.COLOR,
             strokeColor: this.CONFIG.STYLES.TILES.STROKE.COLOR,
@@ -97,7 +97,8 @@ export class Tile {
             this._container.x = (this._x * this.CONFIG.STYLES.TILES.SIZE * 3) + (this.CONFIG.STYLES.TILES.SIZE * 1.5) + this.CONFIG.STYLES.TILES.SIZE;
         }
 
-        this._container.y = (this._y * (this.CONFIG.STYLES.TILES.SIZE - this._offset)) + this.CONFIG.STYLES.TILES.SIZE - this._offset;
+        this._container.x += this.CONFIG.STYLES.TILES.LEFT_OFFSET;
+        this._container.y = (this._y * (this.CONFIG.STYLES.TILES.SIZE - this._offset)) + this.CONFIG.STYLES.TILES.SIZE - this._offset + this.CONFIG.STYLES.TILES.STROKE.SIZE + this.CONFIG.STYLES.TILES.TOP_OFFSET;
     }
 
     public getElement():createjs.Container {
